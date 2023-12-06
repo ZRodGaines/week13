@@ -30,6 +30,10 @@ public class PetStore {
 	private Integer petStoreZip;
 	private Integer petStorePhone;
 	
+	private String petStore;
+	
+	@EqualsAndHashCode.Exclude
+	@ToString.Exclude
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "pet_store_customer", joinColumns
 	= @JoinColumn(name = "pet_store_id"), inverseJoinColumns

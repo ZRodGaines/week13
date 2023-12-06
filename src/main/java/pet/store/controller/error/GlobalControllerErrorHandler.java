@@ -31,6 +31,18 @@ public class GlobalControllerErrorHandler {
 		private String uri;
 	}
 	
+	@ExceptionHandler(UnsupportedOperationException.class)
+	@ResponseStatus(code = HttpStatus.METHOD_NOT_ALLOWED)
+	public ExceptionMessage handleUnsupportedOperationException(UnsupportedOperationException ex, WebRequest webrequest) {
+		return buildExceptionMessage(ex, HttpStatus.METHOD_NOT_ALLOWED, webrequest, LogStatus.MESSAGE_ONLY);
+	}
+	
+	@ExceptionHandler(Exception.class)
+	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
+	public ExceptionMessage handleException(Exception ex, WebRequest webrequest) {
+		return buildExceptionMessage(ex, HttpStatus.INTERNAL_SERVER_ERROR, webrequest, LogStatus.STACK_TRACE);
+	}
+	
 	@ExceptionHandler(NoSuchElementException.class)
 	@ResponseStatus(code = HttpStatus.NOT_FOUND)
 	public ExceptionMessage handleNoSuchElementException(
@@ -38,7 +50,7 @@ public class GlobalControllerErrorHandler {
 		return buildExceptionMessage(ex, HttpStatus.NOT_FOUND, webRequest, LogStatus.MESSAGE_ONLY);
 	}
 
-	private ExceptionMessage buildExceptionMessage(NoSuchElementException ex, HttpStatus status,
+	private ExceptionMessage buildExceptionMessage(Exception ex, HttpStatus status,
 			WebRequest webRequest, LogStatus logStatus) {
 		String message = ex.toString();
 		String statusReason = status.getReasonPhrase();

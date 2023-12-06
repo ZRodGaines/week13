@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
+import pet.store.controller.model.EmployeeData.PetStoreEmployee;
 
 @Entity
 @Data
